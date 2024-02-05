@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.1550.0",
     "axios": "^1.6.7",
     "c2pa-node": "^0.5.11",
     "file-type": "^19.0.0",

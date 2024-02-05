@@ -1,3 +1,4 @@
+import path from 'path';
 import axios from 'axios';
 import {
   LIVEPEER_API_KEY,
@@ -42,7 +43,7 @@ export async function transcodeVideo(fileName, fileUrl, outputBucket) {
       },
       "profiles": [
         {
-          "name": "720p",
+          "name": path.parse(fileName).name,
           "bitrate": 1000,
           "profile": "H264Baseline",
           "encoder": "h264"
@@ -73,4 +74,24 @@ export async function waitUntilTaskIsDone(taskId) {
     task = await getTask(taskId);
   }
   return task;
+}
+
+export function parseMp4PathFromTask(task) {
+  if (task.type !== 'transcode-file') {
+    throw new Error('INVALID_TASK_TYPE');
+  }
+  const transcodeConfig = task.params['transcode-file'];
+  if (!transcodeConfig) {
+    throw new Error('INVALID_TASK_PARAMS');
+  }
+  const folderPath = transcodeConfig.outputs.mp4?.path;
+  const bucket = transcodeConfig.storage?.url.split('/').pop();
+  const fileName = `${transcodeConfig.profiles[0].name}.mp4`;
+  if (!bucket || !folderPath) {
+    return null;
+  }
+  return {
+    bucket,
+    fileName: `${folderPath}/${fileName}`
+  }
 }

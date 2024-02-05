@@ -1,8 +1,11 @@
 import path from 'path';
+import { fileTypeFromBuffer}  from 'file-type';
+
 import { readFile } from './modules/file.js';
 import { getC2PaManifest } from './modules/c2pa.js';
 import { registerNUMAsset, queryNumbersAsset } from './modules/numbers.js';
-import { transcodeVideo, waitUntilTaskIsDone } from './modules/livepeer.js';
+import { transcodeVideo, waitUntilTaskIsDone, parseMp4PathFromTask } from './modules/livepeer.js';
+import { getFile } from './modules/storj.js';
 
 async function main(filePath) {
   const { buffer, mimeType } = await readFile(filePath);
@@ -16,7 +19,7 @@ async function main(filePath) {
     {
       caption: activeManifest.title,
       format: mimeType,
-      information: activeManifest.assertions,
+      // information: activeManifest.assertions,
     }
   );
   console.log(cid);
@@ -25,6 +28,23 @@ async function main(filePath) {
   console.log(taskId);
   const task = await(waitUntilTaskIsDone(taskId));
   console.log(task);
+  const taskOutputData = parseMp4PathFromTask(task);
+  if (!taskOutputData) {
+    throw new Error('LIVEPEER_TRANSCODED_VIDEO_NOT_FOUND');
+  }
+  const { bucket, fileName: transcodedFileName } = taskOutputData;
+  const transcodedBuffer = await getFile(bucket, transcodedFileName);
+  const childCid = await registerNUMAsset(
+    transcodedBuffer,
+    path.basename(transcodedFileName),
+    {
+      caption: activeManifest.title,
+      format: (await fileTypeFromBuffer(transcodedBuffer)).mime,
+      parentAssetCid: cid,
+      // information: activeManifest.assertions,
+    }
+  );
+  console.log(childCid)
 }
 
 main(process.argv[2])
