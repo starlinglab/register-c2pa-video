@@ -61,3 +61,8 @@ export async function registerNUMAsset(fileBuffer, filename, {
     throw new Error("REGISTER_NUM_ASSET_FAILED")
   }
 }
+
+export async function queryNumbersAsset(cid) {
+  const res = await numAPI.get(`/assets/${cid}`);
+  return res.data;
+}
