@@ -17,6 +17,10 @@ yarn
 
 yarn building steps might be slow due to c2pa-node building rust package
 
+## Dependencies
+* Latest version of rust
+* Install [c2patool](https://github.com/contentauth/c2patool) with `cargo install c2patool`
+
 ## Usage
 
 Run the script with the following command:
