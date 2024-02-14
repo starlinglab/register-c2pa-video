@@ -19,8 +19,6 @@ yarn building steps might be slow due to c2pa-node building rust package
 
 ## Dependencies
 * Latest version of [Rust](https://www.rust-lang.org/tools/install)
-* Install [c2patool](https://github.com/contentauth/c2patool) with `cargo install c2patool`
-* Install [c2pa-node](https://github.com/contentauth/c2pa-node) with ` npm install c2pa-node` or `yarn add c2pa-node'
 * Use yarn to update dependencies with `yarn`
 
 ## Usage
