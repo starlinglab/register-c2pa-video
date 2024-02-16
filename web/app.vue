@@ -2,14 +2,26 @@
   <div>
     <input type="file" @change="onFileChange">
     <br >
-    <h2>Active manifest</h2>
+    <h2>c2pa</h2>
+    <h3>Active manifest</h3>
     <pre v-if="activeManifestString">
       {{ activeManifestString }}
     </pre>
     <hr />
-    <h2>Manifest store</h2>
+    <h3>Manifest store</h3>
     <pre v-if="manifestString">
       {{ manifestString }}
+    </pre>
+    <hr />
+    <h2>Numbers</h2>
+    <h3>cid</h3>
+    <pre v-if="fileCid">
+      {{ fileCid }}
+    </pre>
+    <hr />
+    <h3>metadata</h3>
+    <pre v-if="numbersMetadataString">
+      {{ numbersMetadataString }}
     </pre>
   </div>
 </template>
@@ -17,9 +29,12 @@
 import { createC2pa, type C2pa } from 'c2pa';
 import wasmSrc from 'c2pa/dist/assets/wasm/toolkit_bg.wasm?url';
 import workerSrc from 'c2pa/dist/c2pa.worker.js?url';
+import Hash from 'ipfs-only-hash';
 
 const manifestString = ref('')
 const activeManifestString = ref('')
+const fileCid = ref('')
+const numbersMetadataString = ref('')
 let c2pa: C2pa | null = null
 
 onMounted(() => {
@@ -34,6 +49,26 @@ async function getC2pa() {
     })
   }
   return c2pa;
+}
+
+async function readFileCid(file: File) {
+  const reader = new FileReader()
+  reader.onload = async (e) => {
+    try {
+      const buffer = e.target?.result as ArrayBuffer
+      fileCid.value = await Hash.of(new Uint8Array(buffer), { cidVersion: 1, rawLeaves: true })
+      fetchNumbersMetadata(fileCid.value)
+    } catch (err) {
+      console.error('Error reading file:', err)
+    }
+  }
+  reader.readAsArrayBuffer(file)
+}
+
+async function fetchNumbersMetadata(cid: string) {
+  const { data } = await useFetch(`https://api.numbersprotocol.io/api/v3/assets/${cid}`)
+  const metadata = data.value
+  numbersMetadataString.value = JSON.stringify(metadata, null, 2)
 }
 
 async function readC2pa(file: File) {
@@ -65,7 +100,10 @@ async function onFileChange (event: Event) {
   const files = (event.target as HTMLInputElement)?.files
   if (!files) { return }
   const [file] = files
-  await readC2pa(file)
+  await Promise.all([
+    readC2pa(file),
+    readFileCid(file),
+  ]);
 }
 
 </script>
