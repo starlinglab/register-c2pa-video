@@ -13,6 +13,10 @@
           <td>{{ c2paActiveManifest?.title }}</td>
         </tr>
         <tr>
+          <td>Producer</td>
+          <td>{{ c2paProducerName }}</td>
+        </tr>
+        <tr>
           <td>Published By</td>
           <td>{{ c2paActiveManifest?.claimGenerator }}</td>
         </tr>
@@ -64,13 +68,19 @@
   </div>
 </template>
 <script setup lang="ts">
-import { createC2pa, type C2pa } from 'c2pa';
+import {
+  createC2pa,
+  selectProducer,
+  type C2pa,
+  type ManifestStore,
+  type Manifest,
+} from 'c2pa';
 import wasmSrc from 'c2pa/dist/assets/wasm/toolkit_bg.wasm?url';
 import workerSrc from 'c2pa/dist/c2pa.worker.js?url';
 import Hash from 'ipfs-only-hash';
 
 const c2paValidationError = ref('')
-const c2paManifestStore = ref<any>(null)
+const c2paManifestStore = ref<ManifestStore | null>(null)
 const fileCid = ref('')
 const numbersMetadata = ref<any>(null)
 const videoPreview = ref<HTMLInputElement | null>(null)
@@ -79,7 +89,7 @@ const showC2paManifestStore = ref(false)
 const showNumbersMetadata = ref(false)
 
 const c2paActiveManifest = computed(() => {
-  return c2paManifestStore.value?.activeManifest
+  return c2paManifestStore.value?.activeManifest as Manifest || null
 })
 const c2paManifestStoreString = computed(() => {
   return JSON.stringify(
@@ -88,6 +98,10 @@ const c2paManifestStoreString = computed(() => {
     2,
   )
 });
+const c2paProducerName = computed(() => {
+  if (!c2paActiveManifest.value) return 'Unknown'
+  return selectProducer(c2paActiveManifest.value)?.name || 'Unknown'
+})
 const numbersMetadataString = computed(() => {
   return JSON.stringify(
     numbersMetadata.value,
