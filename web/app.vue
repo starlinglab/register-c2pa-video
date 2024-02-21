@@ -23,9 +23,12 @@
       </table>
     </div>
     <div>
-      <h2>Authencity Metadata</h2>
+      <h2>Authenticity Metadata</h2>
       <h3>c2pa</h3>
-      <div v-if="c2paActiveManifest">
+      <div v-if="c2paValidationError">
+        Invalid: {{ c2paValidationError }}
+      </div>
+      <div v-else-if="c2paActiveManifest">
         Verified
         <button @click="showC2paManifestStore = !showC2paManifestStore">
           Show manifest store
@@ -66,6 +69,7 @@ import wasmSrc from 'c2pa/dist/assets/wasm/toolkit_bg.wasm?url';
 import workerSrc from 'c2pa/dist/c2pa.worker.js?url';
 import Hash from 'ipfs-only-hash';
 
+const c2paValidationError = ref('')
 const c2paManifestStore = ref<any>(null)
 const fileCid = ref('')
 const numbersMetadata = ref<any>(null)
@@ -132,6 +136,11 @@ async function readC2pa(file: File) {
   try {
     const { manifestStore } = await c2pa.read(file);
     console.log('manifestStore', manifestStore);
+    if (manifestStore?.validationStatus?.length) {
+      c2paValidationError.value = manifestStore.validationStatus.find((s: any) => s.code)?.code || '';
+    } else {
+      c2paValidationError.value = '';
+    }
     c2paManifestStore.value = manifestStore;
   } catch (err) {
     console.error('Error reading image:', err);
