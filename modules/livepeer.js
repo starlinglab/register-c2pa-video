@@ -14,12 +14,19 @@ const livepeerAPI = axios.create({
   },
 });
 
-export async function transcodeVideo(fileName, fileUrl, outputBucket) {
+export async function transcodeVideo(fileName, { bucket: inputBucket, path: inputPath }, { bucket: outputBucket }) {
   try {
     const result = await livepeerAPI.post('/transcode', {
       c2pa: true,
       input: {
-        "url": fileUrl,
+        "type": "s3",
+        "endpoint": "https://gateway.storjshare.io",
+        "bucket": inputBucket,
+        "path": inputPath,
+        "credentials": {
+          "accessKeyId": STORJ_ACCESS_KEY_ID,
+          "secretAccessKey": STORJ_ACCESS_KEY_SECRET,
+        }
       },
       "storage": {
         "type": "s3",
@@ -31,22 +38,15 @@ export async function transcodeVideo(fileName, fileUrl, outputBucket) {
         }
       },
       "outputs": {
-        "hls": {
-          "path": `/${fileName}/hls`
-        },
         "mp4": {
           "path": `/${fileName}/mp4`
         },
-        "fmp4": {
-          "path": `/${fileName}/fmp4`
-        }
       },
       "profiles": [
         {
           "name": path.parse(fileName).name,
-          "bitrate": 1000,
+          "bitrate": 6000000,
           "profile": "H264Baseline",
-          "encoder": "h264"
         }
       ],
     })
@@ -69,7 +69,7 @@ export async function waitUntilTaskIsDone(taskId) {
   let task = await getTask(taskId);
   while (task?.status?.phase !== 'completed') {
     if (task?.status?.phase === 'failed') throw new Error(task.status.errorMessage);
-    console.log(`Task ${taskId} is still running... retries ${task?.status?.retries}`)
+    console.log(`Task ${taskId} is still running ${task?.status?.progress || ''}... retries ${task?.status?.retries}`)
     await new Promise((resolve) => setTimeout(resolve, 5000));
     task = await getTask(taskId);
   }

@@ -3,9 +3,9 @@ import { fileTypeFromBuffer}  from 'file-type';
 
 import { readFile } from './modules/file.js';
 import { getC2PaManifest } from './modules/c2pa.js';
-import { registerNUMAsset, queryNumbersAsset } from './modules/numbers.js';
+import { registerNUMAsset } from './modules/numbers.js';
 import { transcodeVideo, waitUntilTaskIsDone, parseMp4PathFromTask } from './modules/livepeer.js';
-import { getFile } from './modules/storj.js';
+import { uploadFile, getFile } from './modules/storj.js';
 
 async function main(filePath) {
   const { buffer, mimeType } = await readFile(filePath);
@@ -23,8 +23,14 @@ async function main(filePath) {
     }
   );
   console.log(cid);
-  const numberAsset = await queryNumbersAsset(cid);
-  const taskId = await transcodeVideo(fileName, numberAsset.asset_file, 'test-bucket')
+  const uploadBucket = 'test-bucket';
+  const uploadPath = `input/${fileName}`
+  const outputBucket = 'test-bucket';
+  await uploadFile(uploadBucket, uploadPath, buffer);
+  const taskId = await transcodeVideo(fileName, {
+    bucket: uploadBucket,
+    path: uploadPath,
+  }, { bucket: outputBucket })
   console.log(taskId);
   const task = await(waitUntilTaskIsDone(taskId));
   console.log(task);

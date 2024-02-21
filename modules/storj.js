@@ -21,7 +21,7 @@ function getNewS3Client() {
 
 export async function uploadFile(bucket, path, fileBuffer) {
   const s3 = getNewS3Client();
-  const res = await s3.uploadObject({
+  const res = await s3.putObject({
     Bucket: bucket,
     Key: path,
     Body: fileBuffer,
