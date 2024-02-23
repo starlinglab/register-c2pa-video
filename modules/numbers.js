@@ -4,11 +4,9 @@ import { NUMBER_CAPTURE_TOKEN } from '../config.js';
 
 const numAPI = axios.create({
   baseURL: 'https://api.numbersprotocol.io/api/v3',
-  timeout: 60000,
   headers: {
     'Authorization': `token ${NUMBER_CAPTURE_TOKEN}`,
   },
-  maxBodyLength: 250 * 1024 * 1024, // 250MB
 });
 
 export async function registerNUMAsset(fileBuffer, filename, {
