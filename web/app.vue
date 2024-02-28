@@ -36,9 +36,11 @@ import wasmSrc from 'c2pa/dist/assets/wasm/toolkit_bg.wasm?url';
 import workerSrc from 'c2pa/dist/c2pa.worker.js?url';
 
 const c2pa = ref<C2pa | null>(null)
-const verifiedVideoSrc = ref('https://link.storjshare.io/raw/juebac5porpkkwa32blakincs3oq/livepeer%2Fweb%2F270p0.mp4')
-const unsignedVideoSrc = ref('https://link.storjshare.io/raw/juxnk53eoskzswc7ltdzqy3yqrba/livepeer%2Fweb%2F270p0_unsigned.mp4')
-const tamperedVideoSrc = ref('https://link.storjshare.io/raw/jwkrtpvw5km2uykkj6fncvgcnl2a/livepeer%2Fweb%2F270p0_flipped.mp4')
+const originalVideoSrc = ref('https://link.storjshare.io/raw/jvvm5s25kpsvr4mp7hyi4u3bq24q/livepeer%2Fweb%2F270p0_original.mp4')
+const editiedVideoSrc = ref('https://link.storjshare.io/raw/jviiydy5qhhuf4icra5up5ddwqfa/livepeer%2Fweb%2F270p0_signed.mp4')
+const verifiedVideoSrc = ref('https://link.storjshare.io/raw/jxakmqmzhzfrmum7soa6djoqweyq/livepeer%2Fweb%2F270p0_transcoded.mp4')
+const unsignedVideoSrc = ref('https://link.storjshare.io/raw/juv7ahhjnmsk2o664eax26wjhtba/livepeer%2Fweb%2F270p0_unsigned.mp4')
+const tamperedVideoSrc = ref('https://link.storjshare.io/raw/jvgic5cf6x7ymnkqz2p2jpagd67q/livepeer%2Fweb%2F270p0_flipped.mp4')
 const verifiedVideoFingerprint = ref('bafkreihx7qgg3v5wirghzrxzotgqwatgtoawtzc2jvr7akgdzoupxgjjxe')
 
 onMounted(() => {
