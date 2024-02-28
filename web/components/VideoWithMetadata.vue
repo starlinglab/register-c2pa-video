@@ -1,9 +1,9 @@
 <template>
   <div>
     <div>
-      <input type="file" @change="onFileChange">
+      <input v-if="!src" type="file" @change="onFileChange">
       <br>
-      <video control ref="videoPreview"></video>
+      <video :src="src || undefined" control ref="videoPreview"></video>
     </div>
     <AuthenticityMetadata :c2paValidationError="c2paValidationError" :c2paManifestStore="c2paManifestStore"
       :fileCid="fileCid" />
@@ -18,12 +18,37 @@ import Hash from 'ipfs-only-hash';
 
 const props = defineProps<{
   c2pa: C2pa | null,
+  src?: string,
 }>()
 
 const c2paValidationError = ref('')
 const c2paManifestStore = ref<ManifestStore | null>(null)
 const fileCid = ref('')
-const videoPreview = ref<HTMLInputElement | null>(null)
+const videoPreview = ref<HTMLVideoElement | null>(null)
+
+watch(() => props.src, (src: string | undefined) => {
+  if (src) {
+    videoPreview.value?.play()
+    readURLAsBlob(src)
+  }
+})
+
+onMounted(() => {
+  if (props.src) {
+    videoPreview.value?.play()
+    readURLAsBlob(props.src)
+  }
+})
+
+async function readURLAsBlob(url: string) {
+  const { data, error } = await useFetch(url, {
+    responseType: 'blob'
+  });
+  if (error.value) throw error.value
+  const blob = data.value as Blob
+  readC2pa(blob),
+  fileCid.value = await Hash.of(new Uint8Array(await blob.arrayBuffer()), { cidVersion: 1, rawLeaves: true })
+}
 
 async function readFileCid(file: File) {
   const reader = new FileReader()
@@ -38,7 +63,8 @@ async function readFileCid(file: File) {
   reader.readAsArrayBuffer(file)
 }
 
-async function readC2pa(file: File) {
+async function readC2pa(file: File | Blob) {
+  c2paManifestStore.value = null;
   const c2pa = props.c2pa;
   if (!c2pa) return;
   try {
