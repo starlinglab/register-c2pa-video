@@ -5,8 +5,12 @@
       <br>
       <video :src="src || undefined" control ref="videoPreview"></video>
     </div>
-    <AuthenticityMetadata :c2paValidationError="c2paValidationError" :c2paManifestStore="c2paManifestStore"
-      :fileCid="fileCid" />
+    <AuthenticityMetadata
+      :c2paValidationError="c2paValidationError"
+      :c2paManifestStore="c2paManifestStore"
+      :fileCid="fileCid"
+      :expectedFingerprint="expectedFingerprint"
+    />
   </div>
 </template>
 <script setup lang="ts">
@@ -19,6 +23,7 @@ import Hash from 'ipfs-only-hash';
 const props = defineProps<{
   c2pa: C2pa | null,
   src?: string,
+  expectedFingerprint?: string,
 }>()
 
 const c2paValidationError = ref('')

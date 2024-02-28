@@ -44,7 +44,10 @@
       </div>
       <hr />
       <h3>Numbers</h3>
-      <div v-if="numbersMetadata">
+      <div v-if="expectedFingerprint && expectedFingerprint !== fileCid">
+        Invalid: Expected fingerprint does not match file fingerprint
+      </div>
+      <div v-else-if="numbersMetadata">
         Verified <a :href="`https://verify.numbersprotocol.io/?nid=${fileCid}`" target="_blank" rel="noopener">
           View on Numbers
         </a>
@@ -73,6 +76,7 @@ const props = defineProps<{
   c2paManifestStore: ManifestStore | null,
   c2paValidationError?: string,
   fileCid?: string,
+  expectedFingerprint?: string,
 }>()
 
 const showC2paManifestStore = ref(false)
