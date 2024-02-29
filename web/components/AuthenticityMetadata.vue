@@ -16,20 +16,47 @@
           <td>{{ c2paActiveManifest?.claimGenerator }}</td>
         </tr>
         <tr>
-          <td>FingerPrint</td>
+          <td>Fingerprint</td>
           <td>{{ fileCid }}</td>
+        </tr>
+        <tr>
+          <td>Registration Time</td>
+          <td><time>{{ registrationTime }}</time></td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              :href="`https://ipfs.io/ipfs/${fileCid}`"
+              rel="noopener"
+              target="_blank"
+            >
+              View on IPFS
+            </a>
+          </td>
+          <td>
+            <a
+              :href="src"
+              rel="noopener"
+              target="_blank"
+            >
+              View original file
+            </a>
+          </td>
         </tr>
       </table>
     </div>
     <div>
-      <h2>Authenticity Metadata</h2>
+      <h2>Verifications</h2>
       <h3>c2pa</h3>
       <div v-if="c2paValidationError">
         Invalid: {{ c2paValidationError }}
       </div>
       <div v-else-if="c2paActiveManifest">
         Verified
-        <button @click="showC2paManifestStore = !showC2paManifestStore">
+        <a v-if="verificationSrc" :href="verificationSrc" rel="noopener" target="_blank">
+          View verification
+        </a>
+        <button v-else @click="showC2paManifestStore = !showC2paManifestStore">
           Show manifest store
         </button>
         <div v-if="showC2paManifestStore">
@@ -77,6 +104,7 @@ const props = defineProps<{
   c2paValidationError?: string,
   fileCid?: string,
   expectedFingerprint?: string,
+  src?: string,
 }>()
 
 const showC2paManifestStore = ref(false)
@@ -102,6 +130,15 @@ const c2paManifestStoreString = computed(() => {
     2,
   )
 });
+
+const registrationTime = computed(() => {
+  if (!numbersMetadata.value) return 'Unknown'
+  return new Date(numbersMetadata.value.uploaded_at).toLocaleString()
+})
+const verificationSrc = computed(() => {
+  if (!props.src) ''
+  return `https://verify.contentauthenticity.org/inspect?source=${encodeURIComponent(props.src)}`
+})
 
 const c2paProducerName = computed(() => {
   if (!c2paActiveManifest.value) return 'Unknown'

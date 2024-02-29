@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="display:flex;">
     <div>
       <input v-if="!src" type="file" @change="onFileChange">
       <br>
@@ -10,6 +10,7 @@
       :c2paManifestStore="c2paManifestStore"
       :fileCid="fileCid"
       :expectedFingerprint="expectedFingerprint"
+      :src="src"
     />
   </div>
 </template>
@@ -30,11 +31,21 @@ const c2paValidationError = ref('')
 const c2paManifestStore = ref<ManifestStore | null>(null)
 const fileCid = ref('')
 const videoPreview = ref<HTMLVideoElement | null>(null)
+const srcBlob = ref<Blob | null>(null)
 
 watch(() => props.src, (src: string | undefined) => {
   if (src) {
     videoPreview.value?.play()
     readURLAsBlob(src)
+  }
+})
+watch(() => props.c2pa, async (c2pa) => {
+  if (c2pa) {
+    const blob = srcBlob.value
+    if (blob) {
+      readC2pa(blob)
+      fileCid.value = await Hash.of(new Uint8Array(await blob.arrayBuffer()), { cidVersion: 1, rawLeaves: true })
+    }
   }
 })
 
@@ -51,7 +62,8 @@ async function readURLAsBlob(url: string) {
   });
   if (error.value) throw error.value
   const blob = data.value as Blob
-  readC2pa(blob),
+  srcBlob.value = blob
+  readC2pa(blob)
   fileCid.value = await Hash.of(new Uint8Array(await blob.arrayBuffer()), { cidVersion: 1, rawLeaves: true })
 }
 
