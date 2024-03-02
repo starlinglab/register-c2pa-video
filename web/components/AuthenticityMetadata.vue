@@ -1,96 +1,207 @@
 <template>
-  <div>
-    <div>
-      <h2>Authentication Metadata</h2>
-      <table>
-        <tr>
-          <td>Original Recording By</td>
-          <td>{{ recordedByName || 'Unknown' }}</td>
-        </tr>
-        <tr>
-          <td>Edited and Published By</td>
-          <td>{{ editedByName || 'Unknown' }}</td>
-        </tr>
-        <tr v-if="transcodedByName">
-          <td>Transcoded By</td>
-          <td>{{ transcodedByName }}</td>
-        </tr>
-        <tr>
-          <td>Fingerprint</td>
-          <td>{{ fileCid }}</td>
-        </tr>
-        <tr>
-          <td>Registration Time</td>
-          <td><time>{{ registrationTime }}</time></td>
-        </tr>
-        <tr>
-          <td>
-            <a
-              :href="`https://ipfs.io/ipfs/${fileCid}`"
+  <div v-bind="$attrs" class="space-y-4">
+    <UCard
+      :ui="{
+        body: { padding: '' },
+        footer: { base: 'flex items-center justify-center md:justify-end flex-wrap gap-4' },
+      }"
+    >
+      <template #header>
+        <h2 class="text-white text-xl md:text-2xl font-bold font-mono">Authentication Metadata</h2>
+      </template>
+
+      <UTable
+        :rows="[
+          { label: 'Original Recording By', value: recordedByName || 'Unknown' },
+          { label: 'Edited and Published By', value: editedByName || 'Unknown' },
+          { label: 'Transcoded By', value: transcodedByName || 'Unknown' },
+          { label: 'Fingerprint', value: fileCid },
+          { label: 'Registration Time', value: registrationTime },
+        ]"
+        :ui="{ th: { base: 'hidden' } }"
+      >
+        <template #label-data="{ row }">
+          <span class="font-bold font-mono">{{ row.label }}</span>
+        </template>
+        <template #value-data="{ row }">
+          <span
+            v-if="row.label === 'Fingerprint'"
+            class="text-xs font-mono"
+          >{{ row.value }}</span>
+          <template v-else>
+            {{ row.value }}
+          </template>
+        </template>
+      </UTable>
+
+      <template #footer>
+        <UButton
+          icon="i-heroicons-arrow-top-right-on-square-16-solid"
+          label="View on IPFS"
+          :to="`https://ipfs.io/ipfs/${fileCid}`"
+          variant="outline"
+          rel="noopener"
+          target="_blank"
+        />
+        <UButton
+          icon="i-heroicons-arrow-top-right-on-square-16-solid"
+          label="View Original File"
+          :to="src"
+          variant="outline"
+          rel="noopener"
+          target="_blank"
+        />
+      </template>
+    </UCard>
+
+    <UCard>
+      <template #header>
+        <h2 class="text-white text-xl md:text-2xl font-bold font-mono">Verifications</h2>
+      </template>
+
+      <ul class="space-y-4">
+        <li class="space-y-2">
+          <h3 class="flex items-center text-lg font-bold gap-2 font-mono text-gray-200">
+            C2PA
+            <UBadge
+              v-if="c2paActiveManifest && !c2paValidationError"
+              color="green"
+              variant="subtle"
+              :ui="{ rounded: 'rounded-full' }"
+            >Verified</UBadge>
+            <UBadge
+              v-else
+              color="red"
+              variant="subtle"
+              :ui="{ rounded: 'rounded-full' }"
+            >Unverified</UBadge>
+          </h3>
+
+          <UAlert v-if="c2paValidationError"
+            class="font-mono"
+            icon="i-heroicons-exclamation-triangle-16-solid"
+            title="Invalid"
+            :description="c2paValidationError"
+            color="red"
+            variant="subtle"
+          />
+
+          <div
+            v-else-if="c2paActiveManifest"
+            class="flex items-center gap-4"
+          >
+            <UButton
+              v-if="verificationSrc"
+              icon="i-heroicons-arrow-top-right-on-square-16-solid"
+              label="View Verification"
+              :to="verificationSrc"
+              variant="outline"
               rel="noopener"
               target="_blank"
-            >
-              View on IPFS
-            </a>
-          </td>
-          <td>
-            <a
-              :href="src"
-              rel="noopener"
+            />
+      
+            <UButton
+              v-else
+              label="Show Manifest Store"
+              variant="outline"
+              @click="showC2paManifestStore = !showC2paManifestStore"
+            />
+          </div>
+        </li>
+
+        <li class="space-y-2">
+          <h3 class="flex items-center text-lg font-bold gap-2 font-mono text-gray-200">
+            Numbers
+            <UBadge
+              v-if="numbersMetadata"
+              color="green"
+              variant="subtle"
+              :ui="{ rounded: 'rounded-full' }"
+            >Verified</UBadge>
+            <UBadge
+              v-else
+              color="red"
+              variant="subtle"
+              :ui="{ rounded: 'rounded-full' }"
+            >Unverified</UBadge>
+          </h3>
+
+          <UAlert
+            v-if="expectedFingerprint && expectedFingerprint !== fileCid"
+            class="font-mono"
+            icon="i-heroicons-exclamation-triangle-16-solid"
+            title="Invalid"
+            description="Expected fingerprint does not match file fingerprint"
+            color="red"
+            variant="subtle"
+          />
+
+          <div
+            v-else-if="numbersMetadata"
+            class="flex items-center flex-wrap gap-4"
+          >
+            <UButton
+              label="View on Numbers"
+              icon="i-heroicons-arrow-top-right-on-square-16-solid"
+              :to="`https://verify.numbersprotocol.io/?nid=${fileCid}`"
+              variant="outline"
               target="_blank"
-            >
-              View original file
-            </a>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div>
-      <h2>Verifications</h2>
-      <h3>c2pa</h3>
-      <div v-if="c2paValidationError">
-        Invalid: {{ c2paValidationError }}
-      </div>
-      <div v-else-if="c2paActiveManifest">
-        Verified
-        <a v-if="verificationSrc" :href="verificationSrc" rel="noopener" target="_blank">
-          View verification
-        </a>
-        <button v-else @click="showC2paManifestStore = !showC2paManifestStore">
-          Show manifest store
-        </button>
-        <div v-if="showC2paManifestStore">
-          <h3>Manifest store</h3>
-          <pre>
-            {{ c2paManifestStoreString }}
-            </pre>
-        </div>
-      </div>
-      <div v-else>
-        Not verified
-      </div>
-      <hr />
-      <h3>Numbers</h3>
-      <div v-if="expectedFingerprint && expectedFingerprint !== fileCid">
-        Invalid: Expected fingerprint does not match file fingerprint
-      </div>
-      <div v-else-if="numbersMetadata">
-        Verified <a :href="`https://verify.numbersprotocol.io/?nid=${fileCid}`" target="_blank" rel="noopener">
-          View on Numbers
-        </a>
-        <button @click="showNumbersMetadata = !showNumbersMetadata">View raw data</button>
-        <div v-if="showNumbersMetadata">
-          <h4>Numbers metadata</h4>
-          <pre>
-            {{ numbersMetadataString }}
-          </pre>
-        </div>
-      </div>
-      <div v-else>
-        Not verified
-      </div>
-    </div>
+              rel="noopener"
+            />
+            <UButton
+              label="View Raw Data"
+              variant="outline"
+              @click="showNumbersMetadata = !showNumbersMetadata"
+            />
+          </div>
+        </li>
+      </ul>
+    </UCard>
   </div>
+
+  <UModal
+    v-model="showC2paManifestStore"
+    :ui="{ width: 'sm:max-w-2xl' }"
+  >
+    <UCard
+      :ui="{
+        header: { base: 'flex items-center justify-between' },
+        body: { base: 'overflow-x-auto' },
+      }"
+    >
+      <template #header>
+        <h3 class="font-bold font-mono text-gray-200">Manifest Store</h3>
+        <UButton
+          icon="i-heroicons-x-mark-16-solid"
+          variant="ghost"
+          @click="showC2paManifestStore = false"
+        />
+      </template>
+      <pre class="text-xs">{{ c2paManifestStoreString }}</pre>
+    </UCard>
+  </UModal>
+
+  <UModal
+    v-model="showNumbersMetadata"
+    :ui="{ width: 'sm:max-w-2xl' }"
+  >
+    <UCard
+      :ui="{
+        header: { base: 'flex items-center justify-between' },
+        body: { base: 'overflow-x-auto' },
+      }"
+    >
+      <template #header>
+        <h3 class="font-bold font-mono text-gray-200">Numbers Metadata</h3>
+        <UButton
+          icon="i-heroicons-x-mark-16-solid"
+          variant="ghost"
+          @click="showNumbersMetadata = false"
+        />
+      </template>
+      <pre class="text-xs">{{ numbersMetadataString }}</pre>
+    </UCard>
+  </UModal>
 </template>
 <script setup lang="ts">
 import {
@@ -136,7 +247,7 @@ const registrationTime = computed(() => {
   return new Date(numbersMetadata.value.uploaded_at).toLocaleString()
 })
 const verificationSrc = computed(() => {
-  if (!props.src) ''
+  if (!props.src) return ''
   return `https://verify.contentauthenticity.org/inspect?source=${encodeURIComponent(props.src)}`
 })
 
