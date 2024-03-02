@@ -1,44 +1,96 @@
 <template>
-  <div>
-    <h1>Authenticated Video Archives</h1>
-    <p>Welcome, technical creators, to the intriguing world of Authenticated Video Archives. In this era of vast digital content, the need for secure and verifiable video storage and distribution has become paramount. Authenticated Video Archives offer a revolutionary solution by ensuring the integrity, authenticity, and tamper-proof nature of video assets. By employing advanced cryptographic techniques, these archives verify the origin and integrity of videos, providing an added layer of trust to the content and protecting it from unauthorized modifications. As technical creators, understanding the intricacies of Authenticated Video Archives opens up a realm of possibilities for creating, preserving, and sharing video content with enhanced security and credibility. Let's embark on this journey together and explore the exciting potential of Authenticated Video Archives.</p>
-    <hr />
-    <h2>Authenticated Video</h2>
-    <VideoWithMetadata
-      :c2pa="c2pa"
-      :src="verifiedVideoSrc"
-    />
-    <hr />
-    <table>
-      <tr v-for="d in flowchartData" :key="d.fingerprint">
-        <td>
-          <a target="blank" :href="d.src">{{ d.label }}</a>
-        </td>
-        <td>
-          <a target="blank" :href="d.ipfsSrc">{{ d.fingerprint }}</a>
-        </td>
-        <td>
-          <a target="blank" :href="d.numbersSrc">Numbers</a>
-        </td>
-      </tr>
-    </table>
-    <hr />
-    <h2>Videos without authentication can be prone to
-malicious tampering that goes unnoticed.</h2>
-    <VideoWithMetadata
-      :c2pa="c2pa"
-      :src="unsignedVideoSrc"
-    />
-    <h2>But if the video was authenticated, its tampered
-version will not pass verification against authenticity 
-records.</h2>
-    <VideoWithMetadata
-      :c2pa="c2pa"
-      :src="tamperedVideoSrc"
-      :expectedFingerprint="verifiedVideoFingerprint"
-    />
-  </div>
+  <main class="text-gray-400 bg-[#342B42] space-y-10">
+
+    <section class="relative">
+      <UContainer :ui="{ base: 'min-h-svh flex flex-col justify-center items-center gap-8 text-center' }">
+        <h1 class="text-3xl md:text-6xl font-bold text-center font-mono text-gray-200">Authenticated Video Archives</h1>
+        <p class="text-lg md:text-2xl">Welcome, technical creators, to the intriguing world of <span class="text-green-400 font-bold">Authenticated Video Archives</span>.</p>
+
+        <UIcon name="i-heroicons-chevron-double-down-16-solid" class="animate-bounce absolute bottom-4 text-4xl" />
+      </UContainer>
+    </section>
+
+    <section>
+      <UContainer :ui="{ base: 'py-44 space-y-4 text-center text-lg', constrained: 'max-w-2xl' }">
+        <p>In this era of vast digital content, the need for secure and verifiable video storage and distribution has become paramount. Authenticated Video Archives offer a revolutionary solution by ensuring the integrity, authenticity, and tamper-proof nature of video assets.</p>
+        <p>By employing advanced cryptographic techniques, these archives verify the origin and integrity of videos, providing an added layer of trust to the content and protecting it from unauthorized modifications.</p>
+        <p>As technical creators, understanding the intricacies of <span class="text-green-400 font-bold">Authenticated Video Archives</span> opens up a realm of possibilities for creating, preserving, and sharing video content with enhanced security and credibility.</p>
+      </UContainer>
+    </section>
+
+    <section>
+      <UContainer :ui="{ base: 'py-10 space-y-8' }">
+        <h2 class="text-gray-200 text-3xl md:text-4xl font-bold text-center">Authenticated Video</h2>
+        <VideoWithMetadata
+          :c2pa="c2pa"
+          :src="verifiedVideoSrc"
+        />
+      </UContainer>
+    </section>
+
+    <section class="bg-[#b8bbd6] -skew-y-2">
+      <UContainer :ui="{ base: 'py-10' }">
+        <p class="py-10 text-center text-4xl text-black font-handwriting">Let's embark on this journey together and explore the exciting potential of Authenticated Video Archives.</p>
+      </UContainer>
+    </section>
+
+    <section>
+      <UContainer :ui="{ base: 'py-10'}">
+        <UCard :ui="{ body: { padding: '' } }">
+          <UTable
+            :rows="flowchartData"
+            :columns="[
+              { label: '', key: 'label' },
+              { label: 'IPFS', key: 'ipfsSrc' },
+              { label: 'Numbers', key: 'numbersSrc' },
+            ]"
+          >
+            <template #label-data="{ row }">
+              <span class="font-bold font-mono">{{ row.label }}</span>
+            </template>
+            <template #ipfsSrc-data="{ row }">
+              <UButton
+                :label="row.fingerprint"
+                :to="row.ipfsSrc"
+                variant="link"
+                :padded="false"
+              />
+            </template>
+            <template #numbersSrc-data="{ row }">
+              <UButton
+                icon="i-heroicons-arrow-top-right-on-square-16-solid"
+                label="Numbers"
+                variant="outline"
+                :to="row.numbersSrc"
+              />
+            </template>
+          </UTable>
+        </UCard>
+      </UContainer>
+    </section>
+
+    <section>
+      <UContainer :ui="{ base: 'py-10 space-y-8' }">
+        <h2 class="text-gray-200 text-3xl md:text-4xl font-bold">If the video is <span class="text-red-400">unauthenticated</span>,<br>it can be prone to malicious tampering that goes unnoticed.</h2>
+        <VideoWithMetadata
+          :c2pa="c2pa"
+          :src="unsignedVideoSrc"
+        />
+      </UContainer>
+      <UContainer :ui="{ base: 'pt-10 pb-20 space-y-8' }">
+        <h2 class="text-gray-200 text-3xl md:text-4xl font-bold">But if the video was <span class="text-green-400">authenticated</span>,<br>its  <span class="text-red-400">tampered version</span> will not pass verification against authenticity records.</h2>
+        <VideoWithMetadata
+          :c2pa="c2pa"
+          :src="tamperedVideoSrc"
+          :expectedFingerprint="verifiedVideoFingerprint"
+        />
+      </UContainer>
+    </section>
+
+    <footer class="min-h-44 bg-gradient-to-t from-gray-900/75 to-gray-900/0" />
+  </main>
 </template>
+
 <script setup lang="ts">
 import {
   createC2pa,

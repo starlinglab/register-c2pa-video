@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxt/ui": "^2.14.1",
     "c2pa": "^0.17.7",
     "ipfs-only-hash": "^4.0.0",
     "nuxt": "^3.10.1",

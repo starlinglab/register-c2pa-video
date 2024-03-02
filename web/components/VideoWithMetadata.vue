@@ -1,11 +1,19 @@
 <template>
-  <div style="display:flex;">
-    <div>
+  <div class="flex flex-col md:grid grid-cols-3 gap-4 md:gap-10">
+    <div class="col-span-1">
       <input v-if="!src" type="file" @change="onFileChange">
-      <br>
-      <video :src="src || undefined" control ref="videoPreview"></video>
+      <video
+        ref="videoPreview"
+        class="rounded-lg overflow-hidden w-full"
+        :src="src || undefined"
+        control
+        muted
+        loop
+      />
     </div>
+
     <AuthenticityMetadata
+      class="col-span-2"
       :c2paValidationError="c2paValidationError"
       :c2paManifestStore="c2paManifestStore"
       :fileCid="fileCid"
