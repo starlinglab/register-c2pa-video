@@ -13,5 +13,13 @@ export default defineNuxtConfig({
     }
   },
   devtools: { enabled: true },
-  modules: ['@nuxt/ui'],
+  modules: [
+    '@nuxt/ui',
+    '@hypernym/nuxt-gsap',
+  ],
+  gsap: {
+    extraPlugins: {
+      scrollTrigger: true,
+    }
+  }
 })
