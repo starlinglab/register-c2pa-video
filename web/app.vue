@@ -28,10 +28,22 @@
       </UContainer>
     </section>
 
-    <section class="bg-[#b8bbd6] -skew-y-2">
+    <section class="relative z-[1] bg-[#b8bbd6] -skew-y-2">
       <UContainer :ui="{ base: 'py-10' }">
         <p class="py-10 text-center text-4xl text-black font-handwriting">Let's embark on this journey together and explore the exciting potential of Authenticated Video Archives.</p>
       </UContainer>
+    </section>
+
+    <section class="!-mt-10">
+      <WorkflowAnimation
+        class="w-full"
+        :original-video-src="originalVideoSrc"
+        :original-video-fingerprint="originalVideoFingerprint"
+        :edited-video-src="editedVideoSrc"
+        :edited-video-fingerprint="editedVideoFingerprint"
+        :transcoded-video-src="verifiedVideoSrc"
+        :transcoded-video-fingerprint="verifiedVideoFingerprint"
+      />
     </section>
 
     <section>
