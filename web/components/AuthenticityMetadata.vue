@@ -99,10 +99,9 @@
               rel="noopener"
               target="_blank"
             />
-      
+
             <UButton
-              v-else
-              label="Show Manifest Store"
+              label="View Raw Data"
               variant="outline"
               @click="showC2paManifestStore = !showC2paManifestStore"
             />
