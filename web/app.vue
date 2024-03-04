@@ -112,14 +112,14 @@ import wasmSrc from 'c2pa/dist/assets/wasm/toolkit_bg.wasm?url';
 import workerSrc from 'c2pa/dist/c2pa.worker.js?url';
 
 const c2pa = ref<C2pa | null>(null)
-const originalVideoSrc = ref('https://link.storjshare.io/raw/jvvm5s25kpsvr4mp7hyi4u3bq24q/livepeer%2Fweb%2F270p0_original.mp4')
-const originalVideoFingerprint = ref('bafybeidpny7fbjtt2odtbqui6c7thnmrnajkozgmshkxpxqifqygkiabsa')
-const editedVideoSrc = ref('https://link.storjshare.io/raw/jviiydy5qhhuf4icra5up5ddwqfa/livepeer%2Fweb%2F270p0_signed.mp4')
-const editedVideoFingerprint = ref('bafybeib36fjah22vbzgyxr23mf6d4sbnulw5n5vi6xd3vftajnzzbbtdqu')
-const verifiedVideoSrc = ref('https://link.storjshare.io/raw/jxakmqmzhzfrmum7soa6djoqweyq/livepeer%2Fweb%2F270p0_transcoded.mp4')
-const verifiedVideoFingerprint = ref('bafkreihx7qgg3v5wirghzrxzotgqwatgtoawtzc2jvr7akgdzoupxgjjxe')
-const unsignedVideoSrc = ref('https://link.storjshare.io/raw/juv7ahhjnmsk2o664eax26wjhtba/livepeer%2Fweb%2F270p0_unsigned.mp4')
-const tamperedVideoSrc = ref('https://link.storjshare.io/raw/jvgic5cf6x7ymnkqz2p2jpagd67q/livepeer%2Fweb%2F270p0_flipped.mp4')
+const originalVideoSrc = ref('https://link.storjshare.io/raw/jxyzymdzw4q35txvbupgzifa7tmq/livepeer%2Fweb%2F270p0_original.mp4')
+const originalVideoFingerprint = ref('bafybeie2gm7rgjhulkc3nsxlx5aiw6ozysc4s57e5w3ukvuxhp6zn7h4pe')
+const editedVideoSrc = ref('https://link.storjshare.io/raw/jxo7sjlcjratvwadrxm4l4f5rfxq/livepeer%2Fweb%2F270p0_signed.mp4')
+const editedVideoFingerprint = ref('bafybeifoh4scijvcyju2tlwtbbkadtnyuvpch53dcvauxv2phdz6z7ebfe')
+const verifiedVideoSrc = ref('https://link.storjshare.io/raw/jufatrrm5yzrisvuf4zhxekszika/livepeer%2Fweb%2F270p0_transcoded.mp4')
+const verifiedVideoFingerprint = ref('bafybeiakdsjpqizxy5656qzsnsgsdlewxdjy6smxz23kaaalibh3y6gnqm')
+const unsignedVideoSrc = ref('https://link.storjshare.io/raw/juqco555j63eavzux2rcritw4wuq/livepeer%2Fweb%2F270p0_unsigned.mp4')
+const tamperedVideoSrc = ref('https://link.storjshare.io/raw/jwcbqpimxjo3lrg4wqrsrxcisnqq/livepeer%2Fweb%2F270p0_flipped.mp4')
 
 onMounted(() => {
   getC2pa();
