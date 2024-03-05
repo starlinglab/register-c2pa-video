@@ -35,9 +35,10 @@
       </UTable>
 
       <template #footer>
+        <span class="font-bold font-mono">Download File</span>
         <UButton
           icon="i-heroicons-arrow-top-right-on-square-16-solid"
-          label="View on IPFS"
+          label="IPFS"
           :to="`https://ipfs.io/ipfs/${fileCid}`"
           variant="outline"
           rel="noopener"
@@ -45,7 +46,7 @@
         />
         <UButton
           icon="i-heroicons-arrow-top-right-on-square-16-solid"
-          label="View Original File"
+          label="Storj"
           :to="src"
           variant="outline"
           rel="noopener"
