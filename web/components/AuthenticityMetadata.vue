@@ -64,17 +64,23 @@
           <h3 class="flex items-center text-lg font-bold gap-2 font-mono text-gray-200">
             C2PA
             <UBadge
-              v-if="c2paActiveManifest && !c2paValidationError"
+              v-if="c2paValidationError"
+              color="red"
+              variant="subtle"
+              :ui="{ rounded: 'rounded-full' }"
+            >Verification Failed</UBadge>
+            <UBadge
+              v-else-if="c2paActiveManifest"
               color="green"
               variant="subtle"
               :ui="{ rounded: 'rounded-full' }"
             >Verified</UBadge>
             <UBadge
-              v-else
+              v-else="c2paActiveManifest"
               color="red"
               variant="subtle"
               :ui="{ rounded: 'rounded-full' }"
-            >Unverified</UBadge>
+            >Missing C2PA Data</UBadge>
           </h3>
 
           <UAlert v-if="c2paValidationError"
@@ -112,7 +118,13 @@
           <h3 class="flex items-center text-lg font-bold gap-2 font-mono text-gray-200">
             Numbers
             <UBadge
-              v-if="numbersMetadata"
+              v-if="expectedFingerprint && expectedFingerprint !== fileCid"
+              color="red"
+              variant="subtle"
+              :ui="{ rounded: 'rounded-full' }"
+            >Verification Failed</UBadge>
+            <UBadge
+              v-else-if="numbersMetadata"
               color="green"
               variant="subtle"
               :ui="{ rounded: 'rounded-full' }"
@@ -122,7 +134,7 @@
               color="red"
               variant="subtle"
               :ui="{ rounded: 'rounded-full' }"
-            >Unverified</UBadge>
+            >Missing Numbers Registration</UBadge>
           </h3>
 
           <UAlert
