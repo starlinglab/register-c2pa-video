@@ -6,10 +6,12 @@
         ref="videoPreview"
         class="rounded-lg overflow-hidden w-full"
         :src="src || undefined"
+        :title="caption"
         control
         muted
         loop
       />
+      <p>{{ caption }}</p>
     </div>
 
     <AuthenticityMetadata
@@ -32,6 +34,7 @@ import Hash from 'ipfs-only-hash';
 const props = defineProps<{
   c2pa: C2pa | null,
   src?: string,
+  caption?: string,
   expectedFingerprint?: string,
 }>()
 

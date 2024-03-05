@@ -24,6 +24,7 @@
         <VideoWithMetadata
           :c2pa="c2pa"
           :src="verifiedVideoSrc"
+          caption="Edited & transcoded"
         />
       </UContainer>
     </section>
@@ -87,6 +88,7 @@
         <VideoWithMetadata
           :c2pa="c2pa"
           :src="unsignedVideoSrc"
+          caption="Original without C2PA"
         />
       </UContainer>
       <UContainer :ui="{ base: 'pt-10 pb-20 space-y-8' }">
@@ -95,6 +97,7 @@
           :c2pa="c2pa"
           :src="tamperedVideoSrc"
           :expectedFingerprint="verifiedVideoFingerprint"
+          caption="Pixels are manipulated and vertically flipped of the original"
         />
       </UContainer>
     </section>
