@@ -46,7 +46,7 @@
       />
     </section>
 
-    <section>
+    <!-- <section>
       <UContainer :ui="{ base: 'py-10'}">
         <UCard :ui="{ body: { padding: '' } }">
           <UTable
@@ -79,7 +79,7 @@
           </UTable>
         </UCard>
       </UContainer>
-    </section>
+    </section> -->
 
     <section>
       <UContainer :ui="{ base: 'py-10 space-y-8' }">
