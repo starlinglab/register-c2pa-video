@@ -1,7 +1,7 @@
 <template>
   <div
     ref="animationContainer"
-    class="overflow-hidden flex justify-center items-center min-h-svh p-[4vw]"
+    class="overflow-hidden flex justify-center items-center min-h-svh p-[4vw] box-border"
     style="opacity: 0"
   >
     <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -610,12 +610,14 @@ onMounted(() => {
     scrollTrigger: {
       trigger: animationContainer.value,
       pin: true,
+      start: 'bottom bottom',
+      end: `+=${window.innerHeight * 20} bottom`,
       snap: {
         snapTo: "labels", 
         duration: { min: 0.2, max: 3 }, // the snap animation should be at least 0.2 seconds, but no more than 3 seconds (determined by velocity)
         delay: 0.2, // wait 0.2 seconds from the last scroll event before doing the snapping
       },
-      scrub: 20,
+      scrub: true,
     }, 
   })
 
@@ -628,7 +630,7 @@ onMounted(() => {
 
   // Animate
   tl.from(text01.value, { y: -100, opacity: 0, duration: 1 })
-  tl.fromTo(camera.value, { scale: 4 }, { scale: 2, opacity: 1, delay: -0.5, duration: 2, ease: 'power3.inOut' })
+  tl.fromTo(camera.value, { scale: 6 }, { scale: 2, opacity: 1, delay: -0.5, duration: 2, ease: 'power3.inOut' })
   
   tl.addLabel('slide1')
 
