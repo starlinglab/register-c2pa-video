@@ -1,23 +1,33 @@
 <template>
-  <div class="flex flex-col md:grid grid-cols-3 gap-4 md:gap-10">
-    <div class="col-span-1">
+  <div class="flex flex-col md:items-start md:grid grid-cols-3 gap-4 md:gap-10">
+    <UCard
+      class="col-span-1"
+      :ui="{
+        rounded: 'overflow-hidden',
+        body: { padding: '' },
+        footer: { base: 'text-xs' },
+      }"
+    >
       <input v-if="!src" type="file" @change="onFileChange">
       <video
         ref="videoPreview"
-        class="rounded-lg overflow-hidden w-full"
+        class="w-full"
         :src="src || undefined"
         :title="caption"
         control
         muted
         loop
       />
-      <p>{{ caption }}</p>
-    </div>
+      <template #footer>
+        {{ caption }}
+      </template>
+    </UCard>
 
     <AuthenticityMetadata
       class="col-span-2"
       :c2paValidationError="c2paValidationError"
       :c2paManifestStore="c2paManifestStore"
+      :isLoading="isLoading"
       :fileCid="fileCid"
       :expectedFingerprint="expectedFingerprint"
       :src="src"
@@ -40,6 +50,8 @@ const props = defineProps<{
 
 const c2paValidationError = ref('')
 const c2paManifestStore = ref<ManifestStore | null>(null)
+const isLoadingC2PAManifestStore = ref(true)
+const isFetchingURLData = ref(false)
 const fileCid = ref('')
 const videoPreview = ref<HTMLVideoElement | null>(null)
 const srcBlob = ref<Blob | null>(null)
@@ -60,6 +72,8 @@ watch(() => props.c2pa, async (c2pa) => {
   }
 })
 
+const isLoading = computed(() => isFetchingURLData.value || isLoadingC2PAManifestStore.value)
+
 onMounted(() => {
   if (props.src) {
     videoPreview.value?.play()
@@ -68,9 +82,11 @@ onMounted(() => {
 })
 
 async function readURLAsBlob(url: string) {
+  isFetchingURLData.value = true
   const { data, error } = await useFetch(url, {
     responseType: 'blob'
   });
+  isFetchingURLData.value = false
   if (error.value) throw error.value
   const blob = data.value as Blob
   srcBlob.value = blob
@@ -93,6 +109,7 @@ async function readFileCid(file: File) {
 
 async function readC2pa(file: File | Blob) {
   c2paManifestStore.value = null;
+  isLoadingC2PAManifestStore.value = true;
   const c2pa = props.c2pa;
   if (!c2pa) return;
   try {
@@ -106,6 +123,8 @@ async function readC2pa(file: File | Blob) {
     c2paManifestStore.value = manifestStore;
   } catch (err) {
     console.error('Error reading image:', err);
+  } finally {
+    isLoadingC2PAManifestStore.value = false;
   }
 }
 
