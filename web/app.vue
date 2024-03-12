@@ -3,8 +3,8 @@
 
     <section class="relative">
       <UContainer :ui="{ base: 'min-h-svh flex flex-col justify-center items-center gap-8 text-center' }">
-        <h1 class="text-3xl md:text-6xl font-bold text-center font-mono text-gray-200">Authenticated Video Archives</h1>
-        <p class="text-lg md:text-2xl">Welcome, technical creators, to the intriguing world of <span class="text-green-400 font-bold">Authenticated Video Archives</span>.</p>
+        <h1 class="text-3xl md:text-6xl font-bold text-center font-mono text-gray-200">Authenticated Videos</h1>
+        <p class="text-lg md:text-2xl">Sealing the pixels of each frame and their provenance with <span class="text-green-400 font-bold">cryptography</span></p>
 
         <UIcon name="i-heroicons-chevron-double-down-16-solid" class="animate-bounce absolute bottom-4 text-4xl" />
       </UContainer>
@@ -12,26 +12,28 @@
 
     <section>
       <UContainer :ui="{ base: 'py-44 space-y-4 text-center text-lg', constrained: 'max-w-2xl' }">
-        <p>In this era of vast digital content, the need for secure and verifiable video storage and distribution has become paramount. Authenticated Video Archives offer a revolutionary solution by ensuring the integrity, authenticity, and tamper-proof nature of video assets.</p>
-        <p>By employing advanced cryptographic techniques, these archives verify the origin and integrity of videos, providing an added layer of trust to the content and protecting it from unauthorized modifications.</p>
-        <p>As technical creators, understanding the intricacies of <span class="text-green-400 font-bold">Authenticated Video Archives</span> opens up a realm of possibilities for creating, preserving, and sharing video content with enhanced security and credibility.</p>
+        <p>We are experiencing an unprecedented time where videos can be generated and manipulated at incredibly low effort and cost, and yet convince most of the world that they are genuinely recorded history.</p>
+        <p>As disputes around AI generated photos become frequent topics, and family photos of the Royal Family get published and unpublished by news rooms, <span class="text-green-400 font-bold">these controversies will no doubt find new instantiations in video content</span>.</p>
+        <p>Video files are almost always post-processed through various stages before being published and distributed.  They are also prone to forms of manipulation that are not applicable to photo content.</p>
+        <p>In this demo, <span class="text-green-400 font-bold">we explore the addition of authenticity steps to secure provenance information at these video processing stages of capture, edit, and transcode</span>.</p>
+        <p>We do this by applying cryptographic methods and industry standards for content authenticity, including digital signatures, distributed ledgers, the C2PA standard, Numbers Protocol, Livepeer transcoding network, Filecoin storage network, IPFS and Storj data networks.</p>
       </UContainer>
     </section>
 
     <section>
       <UContainer :ui="{ base: 'py-10 space-y-8' }">
-        <h2 class="text-gray-200 text-3xl md:text-4xl font-bold text-center">Authenticated Video</h2>
+        <h2 class="text-gray-200 text-3xl md:text-4xl font-bold text-center">Sample Authenticated Video</h2>
         <VideoWithMetadata
           :c2pa="c2pa"
           :src="verifiedVideoSrc"
-          caption="Edited & transcoded"
+          caption="Authenticated video distributed with edit & transcode provenance metadata"
         />
       </UContainer>
     </section>
 
     <section class="relative z-[1] bg-[#b8bbd6] -skew-y-2">
       <UContainer :ui="{ base: 'py-10' }">
-        <p class="py-10 text-center text-4xl text-black font-handwriting">Let's embark on this journey together and explore the exciting potential of Authenticated Video Archives.</p>
+        <p class="py-10 text-center text-4xl text-black font-handwriting">Let's explore how an authenticated video is created.</p>
       </UContainer>
     </section>
 
@@ -88,7 +90,7 @@
         <VideoWithMetadata
           :c2pa="c2pa"
           :src="unsignedVideoSrc"
-          caption="Original without C2PA"
+          caption="Original video without provanence data in C2PA manifests"
         />
       </UContainer>
       <UContainer :ui="{ base: 'pt-10 pb-20 space-y-8' }">
@@ -97,7 +99,7 @@
           :c2pa="c2pa"
           :src="tamperedVideoSrc"
           :expectedFingerprint="verifiedVideoFingerprint"
-          caption="Pixels are manipulated and vertically flipped of the original"
+          caption="Video manipulated by vertically flipping the pixels"
         />
       </UContainer>
     </section>

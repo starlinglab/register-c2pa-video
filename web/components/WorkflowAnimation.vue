@@ -459,7 +459,7 @@
       <div
         ref="text01"
         class="absolute"
-      >We can shoot a video from a camera with <span class="text-primary">C2PA</span> running on it.</div>
+      >We start by shooting a video with a camera that supports the <span class="text-primary">C2PA standard</span>.</div>
       <div
         ref="text02"
         class="absolute left-0 bottom-0 max-w-[50vw]"
@@ -467,47 +467,47 @@
       <div
         ref="text03"
         class="absolute right-0 top-0 max-w-[50vw] text-right"
-      >Every recording is signed and included with a <span class="text-primary">C2PA manifest</span>.</div>
+      >Every recording is signed and embedded with a <span class="text-primary">C2PA manifest</span>.</div>
       <div
         ref="text04"
         class="absolute bottom-0"
-      >For content provenance and file history tracking, the video file is registered with <span class="text-primary">Numbers Protocol</span>.</div>
+      >To track the content provenance, the original video file is registered with <span class="text-primary">Numbers Protocol</span> to a distributed ledger.</div>
       <div
         ref="text05"
         class="absolute bottom-0"
-      >For content archiving, the video file is permanently stored using <span class="text-primary">Filecoin</span> with <span class="text-primary">IPFS</span>.</div>
+      >To create a permanent archive of the content, the video file is stored with many <span class="text-primary">Filecoin</span> storage providers and distributed using <span class="text-primary">IPFS</span>.</div>
       <div
         ref="text06"
         class="absolute bottom-0"
-      >The video file can also be shared with others through cloud storage services for post-production.</div>
+      >The video file may also be shared with others using traditional cloud services.</div>
       <div
         ref="text07"
         class="absolute right-0 max-w-[30vw] text-right"
-      >With <span class="text-primary">C2PA-enabled</span> video editing tools, an editor can modify the video without losing its authenticity.</div>
+      >With <span class="text-primary">C2PA-enabled</span> video editing tools, an editor may modify the video without losing its provenance history.</div>
       <div
         ref="text08"
         class="absolute bottom-0 max-w-[70vw]"
-      >The edited video file includes another <span class="text-primary">C2PA manifest</span> and can then be registered with <span class="text-primary">Numbers Protocol</span> to maintain its history.</div>
+      >The edits on the video file is captured in a new <span class="text-primary">C2PA manifest</span>, and the edited video is then registered with <span class="text-primary">Numbers Protocol</span> again to publicly keep its full provenance history.</div>
       <div
         ref="livepeerText"
         class="absolute top-0 max-w-[70vw]"
-      >With the <span class="text-primary">Livepeer</span> network, the video can be transcoded for streaming purposes.</div>
+      >To efficiently distribute to different devices, we use the <span class="text-primary">C2PA-enabled</span> distributed transcoding network <span class="text-primary">Livepeer</span> to create multiple streams of our edited video.</div>
       <div
         ref="numbersRegForTranscodedText"
         class="absolute bottom-0 max-w-[70vw]"
-      >The transcoded video files are registered with <span class="text-primary">Numbers Protocol</span>.</div>
+      >The transcoded video files, with their <span class="text-primary">C2PA manifests</span> signed by the <span class="text-primary">Livepeer</span> network, are again registered with <span class="text-primary">Numbers Protocol</span>.</div>
       <div
         ref="storjIPFSText"
         class="absolute bottom-0 max-w-[70vw]"
-      >The transcoded video files can be distributed using decentralized storage solutions, such as <span class="text-primary">Storj</span> and <span class="text-primary">IPFS</span>.</div>
+      >The transcoded video files can be distributed using decentralized data networks, such as <span class="text-primary">Storj</span> and <span class="text-primary">IPFS</span>.</div>
       <div
         ref="streamText"
         class="absolute top-0 max-w-[70vw]"
-      >Transcoded video files can be streamed directly to end users from decentralized storage.</div>
+      >These authenticated video files can be streamed directly to end users from the decentralized data networks.</div>
       <div
         ref="laptopText"
         class="absolute bottom-0 max-w-[70vw]"
-      >With a <span class="text-primary">C2PA-supported</span> player, end users can verify the authenticity and ensure its provenance.</div>
+      >With a <span class="text-primary">C2PA-enabled</span> player, end users can independently verify the authenticity of the video they are viewing to ensure its provenance.</div>
     </div>
   </div>
 </template>

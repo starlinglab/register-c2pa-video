@@ -7,7 +7,7 @@
       }"
     >
       <template #header>
-        <h2 class="text-white text-xl md:text-2xl font-bold font-mono">Authentication Metadata</h2>
+        <h2 class="text-white text-xl md:text-2xl font-bold font-mono">Provenance Metadata</h2>
       </template>
 
       <UTable
@@ -17,7 +17,7 @@
         ]"
         :rows="[
           {
-            label: 'Original Recording By',
+            label: 'Original Created By',
             value: recordedByName || 'Unknown',
             skeletonWidth: 70,
           },
@@ -27,7 +27,7 @@
             skeletonWidth: 200,
           },
           {
-            label: 'Transcoded By',
+            label: 'Transcoded for Distribution With',
             value: transcodedByName || 'Unknown',
             skeletonWidth: 280,
           },
