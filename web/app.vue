@@ -1,8 +1,18 @@
 <template>
-  <main class="text-gray-400 bg-[#342B42] space-y-10">
+  <main class="text-gray-400 bg-[#342B42] space-y-10 overflow-x-hidden">
 
     <section class="relative">
-      <UContainer :ui="{ base: 'min-h-svh flex flex-col justify-center items-center gap-8 text-center' }">
+      <UContainer :ui="{ base: 'relative min-h-svh flex flex-col justify-center items-center gap-8 text-center' }">
+        <svg ref="heroBgGraphic" class="absolute h-screen w-screen" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1366 1366">
+          <circle ref="heroCircleInDashed" cx="683" cy="683" r="649.84" fill="none" stroke="#fff" opacity=".5" stroke-dasharray="0 0 6.01 6.01" stroke-miterlimit="10"/>
+          <g ref="heroCircleWithDots">
+            <circle cx="683" cy="683" r="479.85" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="3"/>
+            <circle cx="1162.85" cy="683" r="6.36" fill="#fff" stroke-width="0"/>
+            <circle cx="203.15" cy="683" r="6.36" fill="#fff" stroke-width="0"/>
+          </g>
+          <circle cx="683" cy="683" r="559.68" fill="none" opacity=".25" stroke="#fff" stroke-miterlimit="10" stroke-width="6"/>
+        </svg>
+
         <h1 class="text-3xl md:text-6xl font-bold text-center font-mono text-gray-200">Authenticated Videos</h1>
         <p class="text-lg md:text-2xl">Sealing the pixels of each frame and their provenance with <span class="text-green-400 font-bold">cryptography</span></p>
 
@@ -10,8 +20,8 @@
       </UContainer>
     </section>
 
-    <section>
-      <UContainer :ui="{ base: 'py-44 space-y-4 text-center text-lg', constrained: 'max-w-2xl' }">
+    <section class="relative bg-gradient-to-t from-[#342B42] from-65%">
+      <UContainer :ui="{ base: 'py-44 space-y-4 text-left text-lg', constrained: 'max-w-2xl' }">
         <p>We are experiencing an unprecedented time where videos can be generated and manipulated at incredibly low effort and cost, and yet convince most of the world that they are genuinely recorded history.</p>
         <p>As disputes around AI generated photos become frequent topics, and family photos of the Royal Family get published and unpublished by news rooms, <span class="text-green-400 font-bold">these controversies will no doubt find new instantiations in video content</span>.</p>
         <p>Video files are almost always post-processed through various stages before being published and distributed.  They are also prone to forms of manipulation that are not applicable to photo content.</p>
@@ -116,6 +126,12 @@ import {
 import wasmSrc from 'c2pa/dist/assets/wasm/toolkit_bg.wasm?url';
 import workerSrc from 'c2pa/dist/c2pa.worker.js?url';
 
+const { $gsap } = useNuxtApp()
+
+const heroBgGraphic = ref<SVGElement | null>(null)
+const heroCircleInDashed = ref<SVGElement | null>(null)
+const heroCircleWithDots = ref<SVGElement | null>(null)
+
 const c2pa = ref<C2pa | null>(null)
 const originalVideoSrc = ref('https://link.storjshare.io/raw/jxyzymdzw4q35txvbupgzifa7tmq/livepeer%2Fweb%2F270p0_original.mp4')
 const originalVideoFingerprint = ref('bafybeie2gm7rgjhulkc3nsxlx5aiw6ozysc4s57e5w3ukvuxhp6zn7h4pe')
@@ -128,6 +144,7 @@ const tamperedVideoSrc = ref('https://link.storjshare.io/raw/jwcbqpimxjo3lrg4wqr
 
 onMounted(() => {
   getC2pa();
+  animateHero();
 })
 
 const flowchartData = computed(() =>
@@ -152,6 +169,31 @@ async function getC2pa() {
     })
   }
   return c2pa.value;
+}
+
+function animateHero() {
+  $gsap.fromTo(heroBgGraphic.value, {
+    scale: 1,
+  }, {
+    scale: 1.5,
+    duration: 1,
+  })
+
+  $gsap.to(heroCircleInDashed.value, {
+    rotate: -360,
+    duration: 120,
+    ease: 'linear',
+    repeat: -1,
+    transformOrigin: 'center', 
+  })
+
+  $gsap.to(heroCircleWithDots.value, {
+    rotate: 360,
+    duration: 60,
+    ease: 'linear',
+    repeat: -1,
+    transformOrigin: 'center',
+  })
 }
 
 </script>

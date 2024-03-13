@@ -4,7 +4,7 @@
     class="overflow-hidden flex justify-center items-center min-h-svh p-[4vw] box-border"
     style="opacity: 0"
   >
-    <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="absolute inset-0 w-full h-full translate-y-[-15vh]" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g ref="networkLines">
         <path d="M354.096 443.892L1023.82 266.478" stroke="#31DF91" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M211.791 195.386L354.231 443.622" stroke="#31DF91" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -389,12 +389,16 @@
       <path d="M213.25 80.85H218.39V85.92H213.25V80.85Z" fill="white"/>
       <path d="M204.06 80.85H208.66V117.96H204.06V80.85Z" fill="white"/>
       <path fill-rule="evenodd" clip-rule="evenodd" d="M227.58 91.26H222.44V96.33H227.58V91.26ZM239.47 91.26H234.33V96.33H239.47V91.26ZM239.47 113.16H234.33V118.23H239.47V113.16ZM245.96 91.26H251.1V96.33H245.96V91.26ZM240.29 102.21H245.43V107.28H240.29V102.21ZM233.52 102.21H228.38V107.28H233.52V102.21Z" fill="white"/>
-      <path d="M45.0498 341.61C62.5628 341.61 76.7598 327.413 76.7598 309.9C76.7598 292.387 62.5628 278.19 45.0498 278.19C27.5369 278.19 13.3398 292.387 13.3398 309.9C13.3398 327.413 27.5369 341.61 45.0498 341.61Z" fill="#666666" stroke="#999999" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M45.0496 321.56C51.4893 321.56 56.7096 316.34 56.7096 309.9C56.7096 303.46 51.4893 298.24 45.0496 298.24C38.61 298.24 33.3896 303.46 33.3896 309.9C33.3896 316.34 38.61 321.56 45.0496 321.56Z" fill="#999999"/>
-      <path d="M45.0498 278.19V341.61" stroke="#999999" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M1082.57 341.61C1100.08 341.61 1114.28 327.413 1114.28 309.9C1114.28 292.387 1100.08 278.19 1082.57 278.19C1065.06 278.19 1050.86 292.387 1050.86 309.9C1050.86 327.413 1065.06 341.61 1082.57 341.61Z" fill="#666666" stroke="#999999" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M1082.57 321.56C1089.01 321.56 1094.23 316.34 1094.23 309.9C1094.23 303.46 1089.01 298.24 1082.57 298.24C1076.13 298.24 1070.91 303.46 1070.91 309.9C1070.91 316.34 1076.13 321.56 1082.57 321.56Z" fill="#999999"/>
-      <path d="M1082.57 278.19V341.61" stroke="#999999" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <g ref="livepeerBeltRollerLeft">
+        <path d="M45.0498 341.61C62.5628 341.61 76.7598 327.413 76.7598 309.9C76.7598 292.387 62.5628 278.19 45.0498 278.19C27.5369 278.19 13.3398 292.387 13.3398 309.9C13.3398 327.413 27.5369 341.61 45.0498 341.61Z" fill="#666666" stroke="#999999" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M45.0496 321.56C51.4893 321.56 56.7096 316.34 56.7096 309.9C56.7096 303.46 51.4893 298.24 45.0496 298.24C38.61 298.24 33.3896 303.46 33.3896 309.9C33.3896 316.34 38.61 321.56 45.0496 321.56Z" fill="#999999"/>
+        <path d="M45.0498 278.19V341.61" stroke="#999999" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g ref="livepeerBeltRollerRight">
+        <path d="M1082.57 341.61C1100.08 341.61 1114.28 327.413 1114.28 309.9C1114.28 292.387 1100.08 278.19 1082.57 278.19C1065.06 278.19 1050.86 292.387 1050.86 309.9C1050.86 327.413 1065.06 341.61 1082.57 341.61Z" fill="#666666" stroke="#999999" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M1082.57 321.56C1089.01 321.56 1094.23 316.34 1094.23 309.9C1094.23 303.46 1089.01 298.24 1082.57 298.24C1076.13 298.24 1070.91 303.46 1070.91 309.9C1070.91 316.34 1076.13 321.56 1082.57 321.56Z" fill="#999999"/>
+        <path d="M1082.57 278.19V341.61" stroke="#999999" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
       <g ref="livepeerHeatsink">
         <path d="M176.53 280.15V339.66" stroke="#31DF91" stroke-width="5" stroke-miterlimit="10"/>
         <path d="M189.38 280.15V339.66" stroke="#31DF91" stroke-width="5" stroke-miterlimit="10"/>
@@ -462,7 +466,7 @@
       >We start by shooting a video with a camera that supports the <span class="text-primary">C2PA standard</span>.</div>
       <div
         ref="text02"
-        class="absolute left-0 bottom-0 max-w-[50vw]"
+        class="absolute left-0 bottom-0 max-w-[50vw] text-left"
       >The camera can be trusted because it is registered in the <span class="text-primary">C2PA</span> registry.</div>
       <div
         ref="text03"
@@ -592,6 +596,8 @@ const editingSoftwareEditedClip = ref<HTMLElement | null>(null)
 const rendering = ref<HTMLElement | null>(null)
 const renderingProgress = ref<HTMLElement | null>(null)
 const livepeer = ref<HTMLElement | null>(null)
+const livepeerBeltRollerLeft = ref<HTMLElement | null>(null)
+const livepeerBeltRollerRight = ref<HTMLElement | null>(null)
 const livepeerHeatsink = ref<HTMLElement | null>(null)
 const livepeerText = ref<HTMLElement | null>(null)
 const numbersRegForTranscodedText = ref<HTMLElement | null>(null)
@@ -606,27 +612,32 @@ const laptopVerification = ref<HTMLElement | null>(null)
 const laptopVideo = ref<HTMLElement | null>(null)
 
 onMounted(() => {
+  $gsap.to([livepeerBeltRollerLeft.value, livepeerBeltRollerRight.value], {
+    rotate: 360,
+    duration: 2,
+    repeat: -1,
+    transformOrigin: 'center',
+    ease: 'linear',
+  })
+
   const tl = $gsap.timeline({
     scrollTrigger: {
       trigger: animationContainer.value,
       pin: true,
       start: 'bottom bottom',
       end: `+=${window.innerHeight * 20} bottom`,
-      snap: {
-        snapTo: "labels", 
-        duration: { min: 0.2, max: 3 }, // the snap animation should be at least 0.2 seconds, but no more than 3 seconds (determined by velocity)
-        delay: 0.2, // wait 0.2 seconds from the last scroll event before doing the snapping
-      },
       scrub: true,
     }, 
   })
+
+  const holdDuration = 5
 
   // Initialization
   tl.set(animationContainer.value, { opacity: 1 })
   tl.set(livepeer.value, { y: '+=1vh' })
   tl.set([mp4File1080p.value, mp4File720p.value, mp4File360p.value], { opacity: 0 })
-  tl.set(mp4File720p.value, { x: '-=5vw' })
-  tl.set(mp4File360p.value, { x: '-=10vw' })
+  tl.set(mp4File720p.value, { x: '-=40%' })
+  tl.set(mp4File360p.value, { x: '-=80%' })
 
   // Animate
   tl.from(text01.value, { y: -100, opacity: 0, duration: 1 })
@@ -664,16 +675,16 @@ onMounted(() => {
   tl.from(numbersCommit1.value, { opacity: 0, scale: 0, duration: 1, transformOrigin: 'center' })
 
   tl.addLabel('slide4enter')
-  tl.to(text04.value, { opacity: 0, duration: 1 }, 'slide4enter')
+  tl.to(text04.value, { opacity: 0, duration: 1, delay: holdDuration }, 'slide4enter')
 
-  tl.from(text05.value, { opacity: 0, duration: 1 }, 'slide4enter')
-  tl.to(numbersRegistry.value, { y: '-=5%', opacity: 0, duration: 1 }, 'slide4enter')
+  tl.from(text05.value, { opacity: 0, duration: 1, delay: holdDuration }, 'slide4enter')
+  tl.to(numbersRegistry.value, { y: '-=5%', opacity: 0, duration: 1, delay: holdDuration }, 'slide4enter')
   tl.from(filecoinIPFS.value, { y: '-=5vh', opacity: 0, duration: 1 })
 
   tl.addLabel('slide4leave')
 
-  tl.to(text05.value, { opacity: 0, duration: 1, delay: 2 }, 'slide4leave')
-  tl.to(filecoinIPFS.value, { opacity: 0, duration: 1, delay: 2 }, 'slide4leave')
+  tl.to(text05.value, { opacity: 0, duration: 1, delay: holdDuration }, 'slide4leave')
+  tl.to(filecoinIPFS.value, { opacity: 0, duration: 1, delay: holdDuration }, 'slide4leave')
 
   tl.addLabel('cloudStorageEnter')
   tl.from(cloudStorage.value, { x: '+=75vw', duration: 2, ease: 'power3.out' }, 'cloudStorageEnter')
@@ -695,11 +706,11 @@ onMounted(() => {
   tl.from(editingSoftwareTrackCursors.value, { opacity: 0, duration: 1, delay: 2 })
   tl.set(editingSoftwareTrackOrigin.value, { opacity: 0 })
   tl.from(editingSoftwareTrackNew.value, { y: -21.27, duration: 1 })
+  tl.from(editingSoftwareEditedClip.value, { opacity: 0, duration: 4, ease: 'power3.out' }, '-=1')
 
   tl.to(editingSoftware.value, { opacity: 0, duration: 1, delay: 2, ease: 'power3.in' })
   tl.from(rendering.value, { opacity: 0, duration: 1, ease: 'power3.out' })
   tl.from(renderingProgress.value, { x: '-=100%', duration: 4, ease: 'power3.inOut' })
-  tl.from(editingSoftwareEditedClip.value, { opacity: 0, duration: 4, ease: 'power3.out' }, '-=4')
   tl.set(mp4FileRaw.value, { opacity: 1 })
 
   tl.addLabel('numbersRegForEditedEnter')
@@ -716,8 +727,8 @@ onMounted(() => {
 
   tl.addLabel('numbersRegForEditedLeave')
 
-  tl.to(numbersRegistry.value, { y: '-=5%', opacity: 0, duration: 1, delay: 2 }, 'numbersRegForEditedLeave')
-  tl.to(text08.value, { opacity: 0, duration: 1, delay: 2 }, 'numbersRegForEditedLeave')
+  tl.to(numbersRegistry.value, { y: '-=5%', opacity: 0, duration: 1, delay: holdDuration }, 'numbersRegForEditedLeave')
+  tl.to(text08.value, { opacity: 0, duration: 1, delay: holdDuration }, 'numbersRegForEditedLeave')
 
   tl.to(livepeer.value, { x: '-=40vw', opacity: 1, duration: 4, ease: 'power3.out' })
   tl.from(livepeerText.value, { opacity: 0, y: '-=5%', duration: 1, delay: -1 })
@@ -726,13 +737,13 @@ onMounted(() => {
   tl.to(livepeer.value, { x: '-=20vw', opacity: 1, duration: 1, delay: 4, ease: 'power3.in' })
   tl.set(mp4FileRaw.value, { opacity: 0 })
   tl.set(mp4File1080p.value, { opacity: 1 })
-  tl.to(mp4File1080p.value, { x: '+=8vw', duration: 1 })
+  tl.to(mp4File1080p.value, { x: '+=150%', duration: 1 })
   tl.to(livepeer.value, { x: '-=12vw', opacity: 1, duration: 1, delay: -1, ease: 'linear' })
   tl.set(mp4File720p.value, { opacity: 1 })
-  tl.to(mp4File720p.value, { x: '+=8vw', duration: 1 })
+  tl.to(mp4File720p.value, { x: '+=150%', duration: 1 })
   tl.to(livepeer.value, { x: '-=12vw', opacity: 1, duration: 1, delay: -1, ease: 'linear' })
   tl.set(mp4File360p.value, { opacity: 1 })
-  tl.to(mp4File360p.value, { x: '+=8vw', duration: 1 })
+  tl.to(mp4File360p.value, { x: '+=150%', duration: 1 })
   tl.to(livepeer.value, { x: '-=12vw', opacity: 1, duration: 1, delay: -1, ease: 'power3.out' })
   tl.addLabel('livepeerTranscodingEnd')
 
@@ -747,8 +758,8 @@ onMounted(() => {
 
   tl.addLabel('numbersRegForTranscodedLeave')
 
-  tl.to(numbersRegistry.value, { y: '-=5%', opacity: 0, duration: 2, delay: 2 }, 'numbersRegForTranscodedLeave')
-  tl.to(numbersRegForTranscodedText.value, { y: '+=5%', opacity: 0, duration: 2, delay: 2 }, 'numbersRegForTranscodedLeave')
+  tl.to(numbersRegistry.value, { y: '-=5%', opacity: 0, duration: 2, delay: holdDuration }, 'numbersRegForTranscodedLeave')
+  tl.to(numbersRegForTranscodedText.value, { y: '+=5%', opacity: 0, duration: 2, delay: holdDuration }, 'numbersRegForTranscodedLeave')
 
   tl.addLabel('storjIPFSEnter')
   tl.from(storjIPFS.value, { y: '-=5%', opacity: 0, duration: 2 }, 'storjIPFSEnter')
@@ -756,7 +767,6 @@ onMounted(() => {
   
   tl.addLabel('storjIPFSLeave')
   tl.to(storjIPFS.value, { y: '-=5%', opacity: 0, duration: 2, delay: 4 }, 'storjIPFSLeave')
-  tl.to(storjIPFSText.value, { opacity: 0, y: '+=5%', duration: 2, delay: 4 }, 'storjIPFSLeave')
 
   if (networkPoints.value) {
     tl.from(networkPoints.value?.childNodes, { opacity: 0, stagger: 0.1, duration: 1, delay: -2 })
@@ -768,6 +778,8 @@ onMounted(() => {
   if (networkPoints.value) {
     tl.to(networkPoints.value?.childNodes, { opacity: 0, stagger: 0.1, duration: 1, delay: 4 })
   }
+  tl.to(storjIPFSText.value, { opacity: 0, y: '+=5%', duration: 2, delay: 4 })
+
   tl.to(mp4File1080p.value, { opacity: 0, duration: 4, delay: -2 })
   tl.to(mp4File360p.value, { opacity: 0, duration: 4, delay: -3 })
 
@@ -775,11 +787,12 @@ onMounted(() => {
 
   tl.addLabel('streamingBegin')
 
+  tl.from(laptop.value, { y: '+=100vh', duration: 4, ease: 'power4.out' })
   tl.to(streamText.value, { opacity: 0, y: '+=5%', duration: 2, delay: 2 })
 
-  tl.from(laptop.value, { y: '+=100vh', duration: 4, ease: 'power4.out' })
-  tl.from(laptopText.value, { opacity: 0, y: '+=5%', duration: 2, ease: 'power3.out', delay: -2 })
-  tl.from(laptopVideo.value, { opacity: 0, duration: 4, ease: 'power3.out', delay: 2 })
+  tl.addLabel('laptopShow')
+  tl.from(laptopText.value, { opacity: 0, y: '+=5%', duration: 2, ease: 'power3.out' }, 'laptopShow')
+  tl.from(laptopVideo.value, { opacity: 0, duration: 4, ease: 'power3.out' }, 'laptopShow')
   tl.from(laptopVerification.value, { opacity: 0, scale: 2, duration: 2, ease: 'power3.out', transformOrigin: 'center' })
   tl.addLabel('end')
 })
